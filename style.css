@@ -88,3 +88,65 @@ footer a{color:var(--ink2)}
   .items li{flex-wrap:wrap}
   .issue-card{gap:12px; padding:16px}
 }
+
+/* —— 搜索（组件1 搜索框展开 + 组件4 图标变形）—— */
+.topbar{transition:box-shadow .3s}
+.topright{display:flex; align-items:center; gap:14px}
+.topnav{transition:opacity .25s ease, transform .25s ease}
+.topbar.searching .topnav{opacity:0; transform:translateX(8px); pointer-events:none; position:absolute; visibility:hidden}
+.searchbox{
+  position:relative; display:flex; align-items:center; height:40px; width:40px; flex:none;
+  border:1px solid var(--line); border-radius:999px; background:rgba(24,34,48,.5); overflow:hidden;
+  transition:width .32s cubic-bezier(.22,.8,.28,1), border-color .25s, background .25s;
+}
+.searchbox.open{width:min(400px,58vw); border-color:var(--accent); background:rgba(24,34,48,.9)}
+.search-btn{
+  flex:none; width:38px; height:38px; border:0; background:transparent; color:var(--ink2); cursor:pointer;
+  display:grid; place-items:center; position:relative;
+}
+.search-btn svg{position:absolute; width:18px; height:18px; transition:opacity .22s, transform .3s cubic-bezier(.22,.8,.28,1)}
+.search-btn .ic-close{opacity:0; transform:rotate(-70deg) scale(.6)}
+.searchbox.open .search-btn .ic-search{opacity:0; transform:rotate(70deg) scale(.6)}
+.searchbox.open .search-btn .ic-close{opacity:1; transform:rotate(0) scale(1)}
+.searchbox input{
+  flex:1; min-width:0; border:0; outline:0; background:transparent; color:var(--ink);
+  font-size:14.5px; opacity:0; transition:opacity .2s ease .08s; padding-right:4px;
+}
+.searchbox.open input{opacity:1}
+.searchbox input::placeholder{color:var(--ink3)}
+.search-clear{
+  flex:none; width:28px; height:28px; margin-right:6px; border:0; border-radius:50%; cursor:pointer;
+  background:var(--tag); color:var(--ink2); font-size:15px; line-height:1; display:none;
+}
+.searchbox.has-text .search-clear{display:block}
+.search-panel{
+  position:absolute; left:0; right:0; top:100%; padding:10px clamp(12px,3vw,32px) 14px;
+  background:linear-gradient(180deg, rgba(13,19,27,.96), rgba(15,22,32,.94));
+  border-bottom:1px solid var(--line); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  opacity:0; transform:translateY(-6px); pointer-events:none; transition:opacity .22s ease, transform .28s cubic-bezier(.22,.8,.28,1);
+  max-height:min(66vh,540px); overflow:auto;
+}
+.search-panel.show{opacity:1; transform:translateY(0); pointer-events:auto}
+.search-meta{max-width:860px; margin:2px auto 8px; color:var(--ink3); font-size:12.5px; letter-spacing:.12em}
+.search-results{max-width:860px; margin:0 auto; list-style:none; display:grid; gap:8px}
+.search-results a{
+  display:flex; gap:12px; align-items:baseline; padding:11px 15px; border:1px solid var(--line);
+  border-radius:11px; background:var(--panel); text-decoration:none; transition:border-color .2s, transform .2s;
+}
+.search-results a:hover{border-color:var(--accent); transform:translateX(3px)}
+.search-results .rname{flex:none; font-weight:700; color:var(--accent2); font-size:15px}
+.search-results .rname mark{background:rgba(127,178,217,.35); color:#fff; border-radius:3px; padding:0 1px}
+.search-results .rdesc{color:var(--ink2); font-size:13.5px; line-height:1.7; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical}
+.search-results .rdate{flex:none; color:var(--ink3); font-size:12px; letter-spacing:.08em}
+.search-empty{max-width:860px; margin:6px auto; color:var(--ink2); font-size:14px; padding:10px 2px}
+.day:target{animation:dayflash 1.8s ease-out}
+@keyframes dayflash{0%{background:rgba(127,178,217,.14); border-radius:14px}100%{background:transparent}}
+@media (max-width:560px){
+  .searchbox.open{width:calc(100vw - 120px)}
+  .brand small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .searchbox, .search-panel, .search-btn svg, .topnav{transition:none}
+  .day:target{animation:none}
+  html{scroll-behavior:auto}
+}
