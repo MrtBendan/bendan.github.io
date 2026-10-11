@@ -1,110 +1,198 @@
+/* MrtBendan · 每日分享 v2 —— 银灰深空 + 电光青，内容优先 */
 :root{
   color-scheme:dark;
-  --bg:#0d131b; --bg2:#121b26; --panel:rgba(24,34,48,.72); --line:rgba(160,190,220,.16);
-  --ink:#e8eff6; --ink2:#9db2c4; --ink3:#71869a; --accent:#7fb2d9; --accent2:#a8cbe8;
-  --tag:#233246; --ad:#4a3a26;
+  --bg:#0b1017; --bg2:#101825; --panel:rgba(22,31,45,.66); --panel2:rgba(27,38,55,.85);
+  --line:rgba(158,190,219,.14); --line2:rgba(158,190,219,.28);
+  --ink:#e9eff5; --ink2:#a7bccd; --ink3:#6f8699;
+  --accent:#6fd3e7; --accent2:#a9e6f2; --silver:#c8d6e2;
+  --tag:#223146; --ad:#4a3a26;
+  --ease:cubic-bezier(.22,.8,.28,1);
 }
 *{margin:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   font-family:"Noto Sans CJK SC","PingFang SC",sans-serif; color:var(--ink); min-height:100vh;
   background:
-    radial-gradient(1000px 520px at 88% -10%, rgba(94,164,219,.20), transparent 60%),
-    radial-gradient(800px 600px at -12% 108%, rgba(94,164,219,.10), transparent 55%),
-    linear-gradient(165deg, var(--bg) 0%, var(--bg2) 100%);
+    radial-gradient(1100px 540px at 88% -12%, rgba(111,211,231,.13), transparent 58%),
+    radial-gradient(900px 640px at -14% 110%, rgba(120,150,190,.10), transparent 55%),
+    linear-gradient(168deg, var(--bg) 0%, var(--bg2) 100%);
   background-attachment:fixed;
 }
 a{color:inherit}
+::selection{background:rgba(111,211,231,.35)}
+
+/* —— 顶栏 —— */
 .topbar{
   position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
-  padding:13px clamp(16px,4vw,42px); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  background:linear-gradient(180deg, rgba(13,19,27,.88), rgba(13,19,27,.66)); border-bottom:1px solid var(--line);
+  padding:12px clamp(16px,4vw,42px);
+  background:linear-gradient(180deg, rgba(11,16,23,.9), rgba(11,16,23,.68));
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
 }
-.brand{font-family:"Noto Serif CJK SC","Songti SC",serif; font-weight:700; font-size:19px; letter-spacing:.3em; text-decoration:none}
-.brand small{display:block; font-family:"Noto Sans CJK SC",sans-serif; font-weight:400; font-size:9.5px; letter-spacing:.44em; color:var(--ink3); margin-top:2px}
-.topnav{display:flex; gap:8px}
-.topnav a{font-size:13.5px; padding:7px 14px; border-radius:999px; border:1px solid var(--line); text-decoration:none; color:var(--ink2); transition:all .25s}
-.topnav a:hover{color:var(--ink); border-color:var(--accent); transform:translateY(-1px)}
-.wrap{max-width:860px; margin:0 auto; padding:clamp(22px,4vh,44px) clamp(16px,4vw,32px) 72px}
+.brand{
+  font-family:"Noto Serif CJK SC","Songti SC",serif; font-weight:700; font-size:19px;
+  letter-spacing:.3em; text-decoration:none; display:flex; align-items:center; gap:12px;
+}
+.brand::before{
+  content:""; width:11px; height:11px; flex:none; transform:rotate(45deg);
+  background:linear-gradient(135deg, var(--accent), #3d7ea6);
+  box-shadow:0 0 12px rgba(111,211,231,.55);
+}
+.brand small{
+  font-family:"Noto Sans CJK SC",sans-serif; font-weight:400; font-size:9.5px;
+  letter-spacing:.44em; color:var(--ink3);
+}
+.brand .brand-txt{display:flex; flex-direction:column; gap:2px}
+
+/* —— 版心 —— */
+.wrap{max-width:880px; margin:0 auto; padding:clamp(24px,4.5vh,48px) clamp(16px,4vw,32px) 76px}
 .kicker{font-size:11.5px; letter-spacing:.5em; color:var(--accent); text-transform:uppercase}
 h1.title{
-  font-family:"Noto Serif CJK SC","Songti SC",serif; font-size:clamp(38px,7vw,58px); line-height:1.15;
-  letter-spacing:.05em; margin:12px 0 10px; font-weight:900;
+  font-family:"Noto Serif CJK SC","Songti SC",serif; font-weight:900; line-height:1.14;
+  font-size:clamp(40px,7vw,60px); letter-spacing:.05em; margin:14px 0 12px;
+  background:linear-gradient(100deg, #f2f7fb 20%, var(--silver) 48%, #7d99b0 78%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
 }
-.sub{color:var(--ink2); font-size:15.5px; letter-spacing:.1em; line-height:1.9}
+.sub{color:var(--ink2); font-size:15.5px; letter-spacing:.09em; line-height:1.9; max-width:34em}
+
+/* —— 数据条（首页 hero / 期页头共用）—— */
+.metastrip{
+  display:flex; flex-wrap:wrap; gap:10px 34px; margin-top:26px; padding:15px 2px 17px;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.metastrip .m{display:flex; align-items:baseline; gap:9px}
+.metastrip .m b{
+  font-family:"SF Mono","JetBrains Mono",Consolas,monospace; font-size:21px; font-weight:600; color:var(--accent2);
+}
+.metastrip .m span{font-size:12.5px; letter-spacing:.22em; color:var(--ink3)}
+
+/* —— 期页头：幽灵期号 —— */
+.issue-head{position:relative}
+.ghost{
+  position:absolute; right:-6px; top:-30px; z-index:-1; user-select:none; pointer-events:none;
+  font-family:"Noto Serif CJK SC",serif; font-weight:900; font-size:clamp(120px,22vw,190px); line-height:1;
+  color:transparent; -webkit-text-stroke:1px rgba(158,190,219,.13);
+}
 .about{
-  margin:26px 0 8px; padding:16px 20px; border:1px solid var(--line); border-radius:14px;
+  margin:24px 0 6px; padding:16px 20px; border:1px solid var(--line); border-radius:14px;
   background:var(--panel); color:var(--ink2); font-size:14px; line-height:1.95;
 }
 .about b{color:var(--ink)}
-.issue-list{display:grid; gap:14px; margin-top:30px}
+
+/* —— 期数卡片（首页）—— */
+.issue-list{display:grid; gap:13px; margin-top:28px}
 .issue-card{
   display:flex; align-items:center; gap:18px; padding:20px 22px; border:1px solid var(--line); border-radius:16px;
-  background:var(--panel); text-decoration:none; transition:transform .25s, border-color .25s;
+  background:var(--panel); text-decoration:none;
+  transition:transform .3s var(--ease), border-color .3s, background .3s;
 }
-.issue-card:hover{transform:translateY(-2px); border-color:var(--accent)}
+.issue-card:hover{transform:translateY(-3px); border-color:var(--line2); background:var(--panel2)}
 .issue-no{
   flex:none; font-family:"Noto Serif CJK SC",serif; font-size:14px; color:var(--accent);
-  border:1px solid var(--accent); border-radius:10px; padding:8px 10px; letter-spacing:.12em; text-align:center; line-height:1.5;
+  border:1px solid rgba(111,211,231,.45); border-radius:10px; padding:8px 10px; letter-spacing:.12em; text-align:center; line-height:1.5;
 }
 .issue-card h2{font-family:"Noto Serif CJK SC",serif; font-size:21px; letter-spacing:.04em}
 .issue-card p{color:var(--ink3); font-size:13px; margin-top:4px; letter-spacing:.06em}
-.issue-card .go{margin-left:auto; color:var(--accent); font-size:20px; flex:none}
-.dayindex{display:flex; flex-wrap:wrap; gap:7px; margin:24px 0 4px}
+.issue-card .go{
+  margin-left:auto; flex:none; color:var(--accent); font-size:20px;
+  transition:transform .3s var(--ease);
+}
+.issue-card:hover .go{transform:translateX(5px)}
+
+/* —— 最新区 —— */
+.latest{margin-top:36px}
+.latest h3{
+  font-family:"Noto Serif CJK SC",serif; font-size:20px; letter-spacing:.1em; color:var(--ink);
+  display:flex; align-items:center; gap:12px; margin-bottom:8px;
+}
+.latest h3::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px rgba(111,211,231,.8)}
+.latest .more{margin-top:13px; font-size:14px}
+.latest .more a{color:var(--accent); text-decoration:none; border-bottom:1px dashed rgba(111,211,231,.4); padding-bottom:1px}
+
+/* —— 日期索引（期页吸顶）—— */
+.dayindex{
+  position:sticky; top:61px; z-index:40; display:flex; flex-wrap:wrap; gap:7px;
+  margin:22px -8px 2px; padding:10px 8px; border-radius:12px;
+  background:linear-gradient(180deg, rgba(11,16,23,.88), rgba(11,16,23,.78));
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+}
 .dayindex a{
-  font-size:12.5px; padding:5px 11px; border-radius:999px; border:1px solid var(--line);
-  color:var(--ink2); text-decoration:none; transition:all .2s;
+  font-size:12.5px; padding:5px 12px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink2); text-decoration:none; transition:all .22s var(--ease);
 }
 .dayindex a:hover{border-color:var(--accent); color:var(--ink)}
-.day{margin-top:38px; scroll-margin-top:84px}
-.day h2{
-  font-family:"Noto Serif CJK SC",serif; font-size:26px; letter-spacing:.06em;
-  display:flex; align-items:baseline; gap:14px;
+.dayindex a.on{background:rgba(111,211,231,.16); border-color:var(--accent); color:#fff}
+
+/* —— 每一天 —— */
+.day{margin-top:42px; scroll-margin-top:126px}
+.day h2{display:flex; align-items:center; gap:16px}
+.day .dnum{
+  font-family:"Noto Serif CJK SC",serif; font-weight:900; font-size:44px; line-height:1;
+  color:var(--silver);
 }
-.day h2 .dow{font-family:"Noto Sans CJK SC",sans-serif; font-size:13px; color:var(--ink3); letter-spacing:.2em}
-.day h2::after{content:""; flex:1; height:1px; background:var(--line); transform:translateY(-6px)}
-.items{list-style:none; margin-top:16px; display:grid; gap:10px}
+.day .dmeta{display:flex; flex-direction:column; gap:2px}
+.day .dmeta .dm{font-size:15px; letter-spacing:.3em; color:var(--ink)}
+.day .dmeta .dow{font-size:11.5px; letter-spacing:.34em; color:var(--ink3)}
+.day h2::after{content:""; flex:1; height:1px; background:linear-gradient(90deg, var(--line2), transparent)}
+
+/* —— 条目行 —— */
+.items{list-style:none; margin-top:16px; display:grid; gap:9px; counter-reset:item}
 .items li{
-  display:flex; gap:12px; align-items:baseline; padding:14px 18px; border:1px solid var(--line);
-  border-radius:13px; background:var(--panel); transition:border-color .2s, transform .2s;
+  counter-increment:item; display:flex; gap:13px; align-items:baseline;
+  padding:14px 18px 14px 14px; border:1px solid var(--line); border-radius:13px; background:var(--panel);
+  transition:border-color .25s, transform .25s var(--ease), background .25s;
 }
-.items li:hover{border-color:rgba(127,178,217,.5); transform:translateX(3px)}
+.items li:hover{border-color:var(--line2); transform:translateX(3px); background:var(--panel2)}
+.items li::before{
+  content:counter(item, decimal-leading-zero); flex:none;
+  font-family:"SF Mono","JetBrains Mono",Consolas,monospace; font-size:11.5px; color:var(--ink3);
+  transform:translateY(-1px); min-width:22px; text-align:right;
+}
 .items a.name{
   flex:none; font-weight:700; font-size:16px; color:var(--accent2); text-decoration:none;
-  border-bottom:1px dashed rgba(127,178,217,.4); padding-bottom:1px;
+  border-bottom:1px dashed rgba(111,211,231,.35); padding-bottom:1px; transition:color .2s;
 }
-.items a.name:hover{color:#fff}
+.items a.name::after{
+  content:"↗"; margin-left:5px; font-size:12px; color:var(--accent);
+  opacity:0; transition:opacity .22s;
+}
+.items li:hover a.name{color:#fff}
+.items li:hover a.name::after{opacity:1}
 .items .desc{color:var(--ink2); font-size:14.5px; line-height:1.85}
 .items .tag{
   flex:none; font-size:11px; letter-spacing:.14em; padding:3px 9px; border-radius:99px;
   background:var(--tag); color:var(--ink2); transform:translateY(-1px);
 }
 .items .tag.ad{background:var(--ad); color:#e8c98a}
-footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--line); color:var(--ink3); font-size:13px; line-height:2; letter-spacing:.05em}
-footer a{color:var(--ink2)}
-.latest{margin-top:34px}
-.latest h3{font-family:"Noto Serif CJK SC",serif; font-size:19px; letter-spacing:.1em; margin-bottom:6px; color:var(--ink)}
-@media (max-width:560px){
-  .items li{flex-wrap:wrap}
-  .issue-card{gap:12px; padding:16px}
+
+/* —— 页脚 —— */
+footer{
+  margin-top:60px; padding-top:22px; border-top:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:8px 30px; justify-content:space-between; align-items:baseline;
+  color:var(--ink3); font-size:13px; line-height:2; letter-spacing:.05em;
 }
+footer a{color:var(--ink2)}
+footer .top-link{text-decoration:none; border-bottom:1px dashed var(--line2); padding-bottom:1px}
+footer .top-link:hover{color:var(--ink)}
+
+/* —— 入场动画（JS 在场才隐藏初态）—— */
+html.js .reveal{opacity:0; transform:translateY(12px); transition:opacity .55s var(--ease), transform .55s var(--ease)}
+html.js .reveal.in{opacity:1; transform:translateY(0)}
 
 /* —— 搜索（组件1 搜索框展开 + 组件4 图标变形）—— */
-.topbar{transition:box-shadow .3s}
-.topright{display:flex; align-items:center; gap:14px}
 .topnav{transition:opacity .25s ease, transform .25s ease}
 .topbar.searching .topnav{opacity:0; transform:translateX(8px); pointer-events:none; position:absolute; visibility:hidden}
 .searchbox{
   position:relative; display:flex; align-items:center; height:40px; width:40px; flex:none;
-  border:1px solid var(--line); border-radius:999px; background:rgba(24,34,48,.5); overflow:hidden;
-  transition:width .32s cubic-bezier(.22,.8,.28,1), border-color .25s, background .25s;
+  border:1px solid var(--line); border-radius:999px; background:rgba(22,31,45,.5); overflow:hidden;
+  transition:width .32s var(--ease), border-color .25s, background .25s;
 }
-.searchbox.open{width:min(400px,58vw); border-color:var(--accent); background:rgba(24,34,48,.9)}
+.searchbox.open{width:min(400px,58vw); border-color:var(--accent); background:rgba(22,31,45,.92)}
 .search-btn{
   flex:none; width:38px; height:38px; border:0; background:transparent; color:var(--ink2); cursor:pointer;
   display:grid; place-items:center; position:relative;
 }
-.search-btn svg{position:absolute; width:18px; height:18px; transition:opacity .22s, transform .3s cubic-bezier(.22,.8,.28,1)}
+.search-btn svg{position:absolute; width:18px; height:18px; transition:opacity .22s, transform .3s var(--ease)}
 .search-btn .ic-close{opacity:0; transform:rotate(-70deg) scale(.6)}
 .searchbox.open .search-btn .ic-search{opacity:0; transform:rotate(70deg) scale(.6)}
 .searchbox.open .search-btn .ic-close{opacity:1; transform:rotate(0) scale(1)}
@@ -121,32 +209,40 @@ footer a{color:var(--ink2)}
 .searchbox.has-text .search-clear{display:block}
 .search-panel{
   position:absolute; left:0; right:0; top:100%; padding:10px clamp(12px,3vw,32px) 14px;
-  background:linear-gradient(180deg, rgba(13,19,27,.96), rgba(15,22,32,.94));
+  background:linear-gradient(180deg, rgba(11,16,23,.97), rgba(13,20,30,.95));
   border-bottom:1px solid var(--line); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  opacity:0; transform:translateY(-6px); pointer-events:none; transition:opacity .22s ease, transform .28s cubic-bezier(.22,.8,.28,1);
+  opacity:0; transform:translateY(-6px); pointer-events:none; transition:opacity .22s ease, transform .28s var(--ease);
   max-height:min(66vh,540px); overflow:auto;
 }
 .search-panel.show{opacity:1; transform:translateY(0); pointer-events:auto}
-.search-meta{max-width:860px; margin:2px auto 8px; color:var(--ink3); font-size:12.5px; letter-spacing:.12em}
-.search-results{max-width:860px; margin:0 auto; list-style:none; display:grid; gap:8px}
+.search-meta{max-width:880px; margin:2px auto 8px; color:var(--ink3); font-size:12.5px; letter-spacing:.12em}
+.search-results{max-width:880px; margin:0 auto; list-style:none; display:grid; gap:8px}
 .search-results a{
   display:flex; gap:12px; align-items:baseline; padding:11px 15px; border:1px solid var(--line);
-  border-radius:11px; background:var(--panel); text-decoration:none; transition:border-color .2s, transform .2s;
+  border-radius:11px; background:var(--panel); text-decoration:none; transition:border-color .2s, transform .2s var(--ease);
 }
 .search-results a:hover{border-color:var(--accent); transform:translateX(3px)}
 .search-results .rname{flex:none; font-weight:700; color:var(--accent2); font-size:15px}
-.search-results .rname mark{background:rgba(127,178,217,.35); color:#fff; border-radius:3px; padding:0 1px}
+.search-results .rname mark{background:rgba(111,211,231,.32); color:#fff; border-radius:3px; padding:0 1px}
 .search-results .rdesc{color:var(--ink2); font-size:13.5px; line-height:1.7; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical}
 .search-results .rdate{flex:none; color:var(--ink3); font-size:12px; letter-spacing:.08em}
-.search-empty{max-width:860px; margin:6px auto; color:var(--ink2); font-size:14px; padding:10px 2px}
+.search-empty{max-width:880px; margin:6px auto; color:var(--ink2); font-size:14px; padding:10px 2px}
 .day:target{animation:dayflash 1.8s ease-out}
-@keyframes dayflash{0%{background:rgba(127,178,217,.14); border-radius:14px}100%{background:transparent}}
+@keyframes dayflash{0%{background:rgba(111,211,231,.13); border-radius:14px}100%{background:transparent}}
+
 @media (max-width:560px){
-  .searchbox.open{width:calc(100vw - 120px)}
+  .items li{flex-wrap:wrap}
+  .issue-card{gap:12px; padding:16px}
+  .searchbox.open{width:calc(100vw - 118px)}
+  .brand{letter-spacing:.18em}
   .brand small{display:none}
+  .metastrip{gap:8px 22px}
+  .day .dnum{font-size:34px}
+  .dayindex{top:57px}
 }
 @media (prefers-reduced-motion:reduce){
-  .searchbox, .search-panel, .search-btn svg, .topnav{transition:none}
+  .searchbox, .search-panel, .search-btn svg, .topnav, .issue-card, .items li{transition:none}
+  html.js .reveal{opacity:1; transform:none; transition:none}
   .day:target{animation:none}
   html{scroll-behavior:auto}
 }
