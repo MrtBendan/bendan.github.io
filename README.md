@@ -24,7 +24,7 @@
 | `index.html` | 首页（最新一天 + 期数列表） |
 | `YYYY-MM.html` | 各月月刊，如 `2026-10.html` 为第 1 期 |
 | `search.json` | 全站搜索索引，随内容每日重建 |
-| `style.css` / `search.js` | 全站样式与搜索脚本 |
+| `style.css` / `search.js` / `ui.js` | 全站样式、搜索与轻交互脚本 |
 
 ## 维护方式
 
